@@ -19,6 +19,6 @@ app.set('view engine', 'ejs');
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 
-app.listen(PORT, console.log(`Server start ${PORT}`));
+app.listen(PORT, console.log(`Server start ${PORT}`)); 
