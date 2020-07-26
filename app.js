@@ -3,9 +3,12 @@ const expressLayouts = require('express-ejs-layouts');
 const moongose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
 
 const app = express();
 
+//Passport config
+require('./config/passport')(passport);
 
 //Connect to DB 
 const db = require('./config/keys').MongoUri;
@@ -30,6 +33,10 @@ app.use(session({
     resave: false,
     saveUninitialized: true
   }));
+
+  //Passport middleweare
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 // Connect to flash
 app.use(flash());
