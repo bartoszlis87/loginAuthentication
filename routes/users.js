@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-
+const passport = require('passport');
 
 //User Model
 const User = require('../models/User');
@@ -72,6 +72,7 @@ if (errors.length > 0) {
                 //Save user
                 newUser.save()
                     .then(user => {
+                        req.flash('success_msg', 'You are registered, log in now');
                         res.redirect('/users/login');
                     })
                     .catch(err => console.log(err))

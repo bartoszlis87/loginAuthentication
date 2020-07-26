@@ -31,6 +31,16 @@ app.use(session({
     saveUninitialized: true
   }));
 
+// Connect to flash
+app.use(flash());
+
+//Global Vars
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+});
+
 
 // Routes
 app.use('/', require('./routes/index'));
