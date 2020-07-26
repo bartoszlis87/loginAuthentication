@@ -2,7 +2,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const moongose = require('mongoose');
 const flash = require('connect-flash');
-const session 
+const session = require('express-session');
 
 const app = express();
 
@@ -23,6 +23,13 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({
     extended: false
 }));
+
+// Express Session
+app.use(session({
+    secret: 'passwd',
+    resave: false,
+    saveUninitialized: true
+  }));
 
 
 // Routes
