@@ -1,5 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+
+
+//User Model
+const User = require('../models/User');
 
 //Route Login
 router.get('/login', (req, res) => res.render('login'));
@@ -12,6 +17,7 @@ router.post('/register', (req, res) => {
     // console.log(req.body);
     // res.send('Hello');
     const { name, email, password, password2 } = req.body;
+    let errors = [];
 
 //Check fields
 if (!name || !email || !password || !password2) {
@@ -35,9 +41,34 @@ if (errors.length > 0) {
         password2
     });
 } else {
-    res.send('pass');
-}
+// Validation passed
+    User.findOne({
+        email: email
+    })
+    .then(user => {
+        if(user) {
+            //User Exists
+            errors.push({msg: 'Email registered'})
+            res.render('register', {
+                errors,
+                name,
+                email,
+                password,
+                password2
+            });
+        } else {
+            const NewUser = new User({
+                name,
+                email,
+                password,
+                password2
+            });
+            console.log(NewUser);
+            res.send('hello');
+        }
+    })
 
+}
 
 });
 
