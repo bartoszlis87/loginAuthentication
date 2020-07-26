@@ -1,7 +1,11 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const moongose = require('mongoose');
+const flash = require('connect-flash');
+const session 
+
 const app = express();
+
 
 //Connect to DB 
 const db = require('./config/keys').MongoUri;

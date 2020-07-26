@@ -57,14 +57,27 @@ if (errors.length > 0) {
                 password2
             });
         } else {
-            const NewUser = new User({
+            const newUser = new User({
                 name,
                 email,
-                password,
-                password2
+                password
             });
-            console.log(NewUser);
-            res.send('hello');
+    
+            //Hash passwd bcrypt.js
+            bcrypt.genSalt(10, (err, salt) => 
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if(err) throw err;
+                //Hashed password
+                newUser.password = hash;
+                //Save user
+                newUser.save()
+                    .then(user => {
+                        res.redirect('/users/login');
+                    })
+                    .catch(err => console.log(err))
+
+            }));
+
         }
     })
 
