@@ -33,12 +33,12 @@ module.exports = function(passport) {
         })
     );
 //Copy http://www.passportjs.org/docs/ 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
     done(null, user.id);
   });
   
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+  passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
       done(err, user);
     });
   });
